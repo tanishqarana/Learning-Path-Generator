@@ -1,0 +1,78 @@
+## Requirements Document
+##Project : Learning Path Generator
+##Version : MVP 1.0
+##Date : Monday 22 September 2025
+
+###1. User Management 
+- Users can sign up, log in, and manage profiles
+- Store learner attributes (strengths, weaknesses, goals, availability)
+
+### 2. LEARNING PATH GENERATION
+- Backend applies Genetic Algorithm (GA) to generate initial learning paths
+- Reinforcement Learning (RL) updates paths in real-time based on learner performance
+- Performance metrics: quiz results, completion rate, feedback
+
+### 3. PROGRESS TRACKING
+- Learners can view their current path
+- Track completed topics/modules
+- Progress data stored in database
+
+### 4. FEEDBACK LOOP
+- Learners can mark modules as: Completed, Skipped, or Difficult
+- RL agent incorporates feedback and re-optimizes the path
+
+### 5. ADMIN FEATURES (FUTURE SCOPE)
+- Educators/admins can create/edit learning modules
+- Analytics dashboard for learner performance
+
+### 6. RESOURCE INTEGRATION (OPTIONAL/FUTURE)
+- Linking modules to external resources (PDFs, videos, articles)
+- Status: Not included in MVP
+
+===
+##  NON-FUNCTIONAL REQUIREMENTS
+
+### Scalability
+* Should handle multiple learners at once.
+
+### Usability  
+* Clean, modern UI (React/Tailwind).
+
+### Performance
+* GA/RL should generate results in seconds, not minutes.
+
+### Security
+* Password encryption, protected API routes.
+
+### Portability
+* Should run locally and on cloud (Docker optional).
+
+===
+
+##  TECH STACK (INITIAL)
+
+### Frontend
+* React + TypeScript + TailwindCSS
+
+### Backend
+* Python (FastAPI/Flask)
+
+### Soft Computing
+* Genetic Algorithm → Python 
+* Reinforcement Learning → Python 
+
+### Database
+* MongoDB (flexible schema for learner data)
+
+### Authentication
+* JWT-based authentication
+
+### Deployment
+* Local (first)
+
+===
+
+## TECHNICAL NOTES:
+- MVP Focus: Core GA/RL functionality first
+- Database: Store user profiles and progress data
+- API: Backend services for path generation and updates
