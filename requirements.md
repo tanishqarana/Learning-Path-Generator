@@ -1,7 +1,7 @@
 ## Requirements Document
-##Project : Learning Path Generator
-##Version : MVP 1.0
-##Date : Monday 22 September 2025
+## Project : Learning Path Generator
+## Version : MVP 1.0
+## Date : Monday 22 September 2025
 
 ### 1. User Management 
 - Users can **sign up, log in, and manage profiles**
@@ -29,25 +29,26 @@
 - Linking modules to external resources (PDFs, videos, articles)
 - Status: Not included in MVP
 
-===
+---
+
 ##  NON-FUNCTIONAL REQUIREMENTS
 
 ### Scalability
-- [] Should handle multiple learners at once.
+- [ ] Should handle multiple learners at once.
 
 ### Usability  
-- [] Clean, modern UI (React/Tailwind).
+- [ ] Clean, modern UI (React/Tailwind).
 
 ### Performance
-- [] GA/RL should generate results in seconds, not minutes.
+- [ ] GA/RL should generate results in seconds, not minutes.
 
 ### Security
-- [] Password encryption, protected API routes.
+- [ ] Password encryption, protected API routes.
 
 ### Portability
-- [] Should run locally and on cloud (Docker optional).
+- [ ] Should run locally and on cloud (Docker optional).
 
-===
+---
 
 ##  TECH STACK (INITIAL)
 
@@ -70,7 +71,7 @@
 ### Deployment
 * Local (first)
 
-===
+---
 
 ## TECHNICAL NOTES:
 - MVP Focus: Core GA/RL functionality first
