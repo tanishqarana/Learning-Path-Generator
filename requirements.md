@@ -3,22 +3,22 @@
 ##Version : MVP 1.0
 ##Date : Monday 22 September 2025
 
-###1. User Management 
-- Users can sign up, log in, and manage profiles
+### 1. User Management 
+- Users can **sign up, log in, and manage profiles**
 - Store learner attributes (strengths, weaknesses, goals, availability)
 
 ### 2. LEARNING PATH GENERATION
-- Backend applies Genetic Algorithm (GA) to generate initial learning paths
-- Reinforcement Learning (RL) updates paths in real-time based on learner performance
+- Backend applies **Genetic Algorithm (GA)** to generate initial learning paths
+- **Reinforcement Learning (RL)** updates paths in real-time based on learner performance
 - Performance metrics: quiz results, completion rate, feedback
 
 ### 3. PROGRESS TRACKING
-- Learners can view their current path
+- Learners can **view their current path**
 - Track completed topics/modules
 - Progress data stored in database
 
 ### 4. FEEDBACK LOOP
-- Learners can mark modules as: Completed, Skipped, or Difficult
+- Learners can mark modules as: **Completed, Skipped, or Difficult**
 - RL agent incorporates feedback and re-optimizes the path
 
 ### 5. ADMIN FEATURES (FUTURE SCOPE)
@@ -33,19 +33,19 @@
 ##  NON-FUNCTIONAL REQUIREMENTS
 
 ### Scalability
-* Should handle multiple learners at once.
+- [] Should handle multiple learners at once.
 
 ### Usability  
-* Clean, modern UI (React/Tailwind).
+- [] Clean, modern UI (React/Tailwind).
 
 ### Performance
-* GA/RL should generate results in seconds, not minutes.
+- [] GA/RL should generate results in seconds, not minutes.
 
 ### Security
-* Password encryption, protected API routes.
+- [] Password encryption, protected API routes.
 
 ### Portability
-* Should run locally and on cloud (Docker optional).
+- [] Should run locally and on cloud (Docker optional).
 
 ===
 
