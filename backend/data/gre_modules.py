@@ -151,7 +151,7 @@ def create_gre_quantitative_module():
 def set_prerequisites(modules):
     """Define the learning dependencies between modules"""
     
-    print("🔧 Setting up prerequisites...")  # Debug line
+    print("Setting up prerequisites...")  # Debug line
     
     """Define precise prerequisite relationships for atomic modules"""
     
@@ -247,15 +247,15 @@ def set_prerequisites(modules):
     for module_id, prereq_ids in prerequisites.items():
         # Check if module exists
         if module_id not in module_dict:
-            print(f"❌ ERROR: Module ID {module_id} not found!")
+            print(f"ERROR: Module ID {module_id} not found!")
             continue
             
-        print(f"   Setting prerequisites for module {module_id}...")
+        #print(f"   Setting prerequisites for module {module_id}...")
         
         for prereq_id in prereq_ids:
             # Check if prerequisite module exists
             if prereq_id not in module_dict:
-                print(f"❌ ERROR: Prerequisite module ID {prereq_id} not found!")
+                print(f"ERROR: Prerequisite module ID {prereq_id} not found!")
                 continue
                 
             # Add concept prerequisites from the prerequisite modules
@@ -265,7 +265,7 @@ def set_prerequisites(modules):
                     module_dict[module_id].add_prerequisite(concept)
                     print(f"      Added prerequisite: {concept}")
     
-    print("✅ Prerequisites set successfully!")
+    print("   Prerequisites set successfully!")
     
 # Test function
 if __name__ == "__main__":
