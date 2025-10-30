@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment - LearnPath</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+     <!-- In ALL HTML PAGES - UPDATE HEADER NAVIGATION -->
+<header class="header">
+    <div class="header-container">
+        <div class="logo">
+            <a href="dashboard.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                <div class="logo-icon">🎓</div>
+                <div class="logo-text">
+                    <h1>LearnPath</h1>
+                    <p>AI-Powered Learning</p>
+                </div>
+            </a>
+        </div>
+        <nav class="nav">
+            <a href="dashboard.html" class="nav-button">
+                📊 Dashboard
+            </a>
+            <a href="learning-path.html" class="nav-button">
+                🗺️ Learning Path
+            </a>
+            <a href="assessment.html" class="nav-button">
+                🎯 Assessment
+            </a>
+            <a href="profile.html" class="nav-button">
+                👤 Profile
+            </a>
+        </nav>
+    </div>
+</header>
+
+    <main class="main-content">
+        <div class="page-container">
+            <h1>🎯 Knowledge Assessment</h1>
+            <p>Answer these questions to personalize your learning experience</p>
+            
+            <div class="assessment-container">
+                <div class="card">
+                    <h3>Initial Assessment</h3>
+                    <p>This assessment helps us understand your current math level and create a personalized learning path.</p>
+                    
+                    <div class="assessment-info">
+                        <div class="info-item">
+                            <span class="info-label">Questions:</span>
+                            <span class="info-value">20 Questions</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Time:</span>
+                            <span class="info-value">20-30 minutes</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Concepts:</span>
+                            <span class="info-value">All major GRE Quantitative areas</span>
+                        </div>
+                    </div>
+                    
+                    <!-- In assessment.html - UPDATE BUTTONS -->
+<div class="actions">
+    <a href="assessment-questions.html" class="primary-button">
+        Start Assessment
+    </a>
+    <a href="dashboard.html" class="secondary-button">
+        Back to Dashboard
+    </a>
+</div>
+                </div>
+
+                <div class="card">
+                    <h3>Mock Exam</h3>
+                    <p>Full-length GRE Quantitative practice test with 40 questions.</p>
+                    
+                    <div class="assessment-info">
+                        <div class="info-item">
+                            <span class="info-label">Questions:</span>
+                            <span class="info-value">40 questions</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Time:</span>
+                            <span class="info-value">70 minutes</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Score:</span>
+                            <span class="info-value">130-170 GRE scale</span>
+                        </div>
+                    </div>
+                    
+                    <div class="actions">
+                        <button class="primary-button" onclick="startMockExam()">
+                            Start Mock Exam
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>© 2024 LearnPath. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

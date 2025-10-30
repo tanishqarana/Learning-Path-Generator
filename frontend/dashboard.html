@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - LearnPath</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- In ALL HTML PAGES - UPDATE HEADER NAVIGATION -->
+<header class="header">
+    <div class="header-container">
+        <div class="logo">
+            <a href="dashboard.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                <div class="logo-icon">🎓</div>
+                <div class="logo-text">
+                    <h1>LearnPath</h1>
+                    <p>AI-Powered Learning</p>
+                </div>
+            </a>
+        </div>
+        <nav class="nav">
+            <a href="dashboard.html" class="nav-button">
+                📊 Dashboard
+            </a>
+            <a href="learning-path.html" class="nav-button">
+                🗺️ Learning Path
+            </a>
+            <a href="assessment.html" class="nav-button">
+                🎯 Assessment
+            </a>
+            <a href="profile.html" class="nav-button">
+                👤 Profile
+            </a>
+        </nav>
+    </div>
+</header>
+
+    <main class="main-content">
+        <div class="page-container">
+            <h1>📊 Dashboard</h1>
+            <p>Your GRE Quantitative learning progress</p>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Target Score</h3>
+                    <div class="stat-number" id="target-score">160</div>
+                    <div class="stat-label">GRE Quantitative</div>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Current Level</h3>
+                    <div class="stat-number" id="current-score">-</div>
+                    <div class="stat-label">Based on assessment</div>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Study Time</h3>
+                    <div class="stat-number" id="study-time">5h</div>
+                    <div class="stat-label">Per week</div>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Modules Completed</h3>
+                    <div class="stat-number" id="completed-modules">0</div>
+                    <div class="stat-label">Out of 55</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Progress Overview</h3>
+                <div class="progress-section">
+                    <div class="progress-item">
+                        <label>Overall Progress</label>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="overall-progress" style="width: 0%"></div>
+                        </div>
+                        <span class="progress-text" id="progress-text">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <<!-- In dashboard.html - UPDATE WITH PROPER NAVIGATION -->
+                    <div class="recommended-actions">
+                        <h3>🎯 Recommended Actions</h3>
+
+                        <a href="./assessment-questions.html" class="action-item">
+                            <div class="action-icon">📊</div>
+                            <div class="action-text">
+                                <strong>Take Assessment</strong>
+                                <p>Start with initial assessment</p>
+                            </div>
+                        </a>
+
+                        <a href="./learning-path.html" class="action-item">
+                            <div class="action-icon">🗺️</div>
+                            <div class="action-text">
+                                <strong>View Learning Path</strong>
+                                <p>See your personalized roadmap</p>
+                            </div>
+                        </a>
+
+                        <a href="./assessment.html" class="action-item">
+                            <div class="action-icon">📝</div>
+                            <div class="action-text">
+                                <strong>Mock Exam</strong>
+                                <p>Full GRE practice test</p>
+                            </div>
+                        </a>
+
+                        <a href=./profile.html" class="action-item">
+                            <div class="action-icon">👤</div>
+                            <div class="action-text">
+                                <strong>View Profile</strong>
+                                <p>See your progress and stats</p>
+                            </div>
+                        </a>
+                    </div>
+            </div>
+
+            <div class="card">
+                <h3>Knowledge Profile</h3>
+                <div id="knowledge-profile">
+                    <p>Complete assessment to see your knowledge profile</p>
+                    <button class="primary-button" onclick="navigate('assessment')">
+                        Start Assessment
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>© 2024 LearnPath. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

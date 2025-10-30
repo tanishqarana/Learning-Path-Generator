@@ -1,9 +1,11 @@
 """
 FastAPI server for the Learning Path Generator - FIXED VERSION
 """
-
+from fastapi.middleware.cors import CORSMiddleware
+from assessment.question_bank import get_initial_assessment_questions, get_concept_coverage
 import sys
 import os
+import uvicorn
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from fastapi import FastAPI, HTTPException
@@ -20,10 +22,17 @@ app = FastAPI(title="Learning Path Generator API", version="1.0.0")
 # Enable CORS for frontend development
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://localhost:3001",
+        "http://127.0.0.1:3001", 
+        "http://0.0.0.0:3001"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    allow_origin_regex=None,
+    expose_headers=[],
+    max_age=600,
 )
 
 class StudentRequest(BaseModel):
@@ -215,8 +224,56 @@ async def list_all_modules():
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error loading modules: {str(e)}")
 
+# In backend/main.py - UPDATE ASSESSMENT PROCESSING
 @app.post("/student/assess")
 async def assess_student_knowledge(known_concepts: Dict[str, float]):
+    """Assess student's knowledge from comprehensive 20-question test"""
+    try:
+        student = Student(name="Assessment Student", goal="gre_quantitative", target_score=160)
+        student.known_concepts = known_concepts
+        
+        # Enhanced analysis with comprehensive data
+        strong_areas = student.get_strong_concepts(70)
+        weak_areas = student.get_weak_concepts(50)
+        overall_proficiency = sum(student.known_concepts.values()) / len(student.known_concepts)
+        
+        # Calculate confidence score based on number of concepts assessed
+        confidence_score = min(100, len(known_concepts) * 5)  # More concepts = higher confidence
+        
+        # Generate personalized recommendations
+        recommendations = self.generate_recommendations(strong_areas, weak_areas, overall_proficiency)
+        
+        return {
+            "strong_areas": strong_areas,
+            "weak_areas": weak_areas, 
+            "overall_proficiency": round(overall_proficiency, 1),
+            "confidence_score": confidence_score,
+            "recommendations": recommendations,
+            "concept_scores": known_concepts  # Return all calculated scores
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error in assessment: {str(e)}")
+
+def generate_recommendations(self, strong_areas, weak_areas, overall_proficiency):
+    """Generate personalized study recommendations"""
+    recommendations = []
+    
+    if weak_areas:
+        if len(weak_areas) >= 5:
+            recommendations.append(f"Focus on your {len(weak_areas)} weak areas with foundational modules first")
+        else:
+            recommendations.append(f"Address your {len(weak_areas)} weak areas while maintaining strong concepts")
+    else:
+        recommendations.append("Great job! Focus on advanced concepts and test strategies")
+    
+    if overall_proficiency < 50:
+        recommendations.append("Start with basic arithmetic and algebra fundamentals")
+    elif overall_proficiency < 70:
+        recommendations.append("Build on fundamentals with intermediate concepts and practice")
+    else:
+        recommendations.append("Focus on advanced problems and time management strategies")
+    
+    return recommendations
     """Assess student's knowledge and return analysis"""
     try:
         student = Student(name="Assessment Student", goal="gre_quantitative", target_score=160)
@@ -249,7 +306,54 @@ async def health_check():
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Health check failed: {str(e)}")
+    
+# In backend/main.py - ADD THIS ENDPOINT
+@app.get("/modules/all")
+async def get_all_modules():
+    """Get all 55 GRE quantitative modules with full details"""
+    try:
+        modules = create_gre_quantitative_modules()
+        
+        return {
+            "total_modules": len(modules),
+            "modules": [
+                {
+                    "id": module.id,
+                    "name": module.name,
+                    "difficulty": module.difficulty,
+                    "time_estimate": module.time_estimate,
+                    "concepts": module.concepts,
+                    "prerequisites": module.prerequisites,
+                    "topics": module.topics,
+                    "description": getattr(module, 'description', f"Master {', '.join(module.concepts)} concepts")
+                }
+                for module in modules
+            ]
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error loading modules: {str(e)}")
 
 if __name__ == "__main__":
-    import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
+    
+@app.get("/assessment/questions")
+async def get_assessment_questions():
+    """Get all assessment questions for the frontend"""
+    try:
+        questions = get_initial_assessment_questions()
+        coverage = get_concept_coverage()
+        
+        return {
+            "questions": questions,
+            "coverage": coverage
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error loading questions: {str(e)}")
+
+@app.get("/assessment/coverage")
+async def get_assessment_coverage():
+    """Get information about what concepts the assessment covers"""
+    try:
+        return get_concept_coverage()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error getting coverage: {str(e)}")

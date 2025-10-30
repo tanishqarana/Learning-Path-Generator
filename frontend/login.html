@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnPath - Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-page">
+    <!-- In ALL HTML PAGES - UPDATE HEADER NAVIGATION -->
+<header class="header">
+    <div class="header-container">
+        <div class="logo">
+            <a href="dashboard.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                <div class="logo-icon">🎓</div>
+                <div class="logo-text">
+                    <h1>LearnPath</h1>
+                    <p>AI-Powered Learning</p>
+                </div>
+            </a>
+        </div>
+        <nav class="nav">
+            <a href="dashboard.html" class="nav-button">
+                📊 Dashboard
+            </a>
+            <a href="learning-path.html" class="nav-button">
+                🗺️ Learning Path
+            </a>
+            <a href="assessment.html" class="nav-button">
+                🎯 Assessment
+            </a>
+            <a href="profile.html" class="nav-button">
+                👤 Profile
+            </a>
+        </nav>
+    </div>
+</header>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="logo-large">
+                <div class="logo-icon">🎓</div>
+                <h1>LearnPath</h1>
+                <p>AI-Powered GRE Quantitative Learning</p>
+            </div>
+            
+            <div class="login-form">
+                <h2>Welcome Back</h2>
+                <p>Select your profile to continue learning</p>
+                
+                <div id="profiles-list" class="profiles-list">
+                    <!-- Profiles will be loaded here -->
+                    <div class="loading">Loading profiles...</div>
+                </div>
+                
+                <div class="login-actions">
+                    <button class="primary-button full-width" onclick="createNewProfile()">
+                        Create New Profile
+                    </button>
+                    <button class="secondary-button full-width" onclick="quickDemo()">
+                        Try Quick Demo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

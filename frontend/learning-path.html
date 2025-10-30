@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Path - LearnPath</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <a href="dashboard.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                    <div class="logo-icon">🎓</div>
+                    <div class="logo-text">
+                        <h1>LearnPath</h1>
+                        <p>AI-Powered Learning</p>
+                    </div>
+                </a>
+            </div>
+            <nav class="nav">
+                <a href="dashboard.html" class="nav-button">📊 Dashboard</a>
+                <a href="learning-path.html" class="nav-button active">🗺️ Learning Path</a>
+                <a href="assessment.html" class="nav-button">🎯 Assessment</a>
+                <a href="profile.html" class="nav-button">👤 Profile</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="page-container">
+            <h1>🗺️ Your Learning Path</h1>
+            <p>AI-generated personalized learning sequence based on your comprehensive assessment</p>
+
+            <!-- Loading State -->
+            <div id="path-loading" class="card" style="display: none;">
+                <div style="text-align: center; padding: 40px;">
+                    <div style="font-size: 3rem; margin-bottom: 20px;">🧬</div>
+                    <h3>Generating Your Learning Path</h3>
+                    <p>Our AI genetic algorithm is creating your personalized learning sequence...</p>
+                    <div class="loading-spinner"></div>
+                    <p><small>This may take a few seconds</small></p>
+                </div>
+            </div>
+
+            <!-- Error State -->
+            <div id="path-error" class="card error-card" style="display: none;">
+                <!-- Error content will be inserted here -->
+            </div>
+
+            <!-- Initial State - Show this when no path exists -->
+            <div id="path-initial" class="card">
+                <div style="text-align: center; padding: 40px;">
+                    <div style="font-size: 4rem; margin-bottom: 20px;">🗺️</div>
+                    <h2>Ready to Generate Your Learning Path</h2>
+                    <p>Create your personalized AI-generated learning sequence based on your comprehensive assessment results.</p>
+                    
+                    <div class="path-prerequisites">
+                        <div class="prerequisite-check">
+                            <span class="check-icon">✅</span>
+                            <span>Complete comprehensive assessment</span>
+                        </div>
+                        <div class="prerequisite-check">
+                            <span class="check-icon">✅</span>
+                            <span>Set your target score and study time</span>
+                        </div>
+                        <div class="prerequisite-check">
+                            <span class="check-icon">🧬</span>
+                            <span>AI genetic algorithm optimization</span>
+                        </div>
+                    </div>
+                    
+                    <button id="generate-btn" class="primary-button large" onclick="generateLearningPath()">
+                        🧬 Generate Learning Path
+                    </button>
+                    
+                    <div style="margin-top: 20px; font-size: 0.9rem; color: #6b7280;">
+                        <p>Your path will be optimized for your weak areas and target score</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Path Statistics (shown after generation) -->
+            <div id="path-stats" class="path-stats-grid" style="display: none;">
+                <div class="stat-card">
+                    <div class="stat-number" id="total-modules">0</div>
+                    <div class="stat-label">Total Modules</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="total-time">0h</div>
+                    <div class="stat-label">Total Time</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="path-fitness">0%</div>
+                    <div class="stat-label">Path Fitness</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="weak-covered">0</div>
+                    <div class="stat-label">Weak Areas Covered</div>
+                </div>
+            </div>
+
+            <!-- Path Content (shown after generation) -->
+            <div id="path-container" style="display: none;">
+                <!-- Path overview will be inserted here -->
+            </div>
+
+            <!-- Module Sequence (shown after generation) -->
+            <div id="path-visualization" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h3>📚 Your Learning Sequence</h3>
+                    <button class="secondary-button" onclick="generateLearningPath()">
+                        🔄 Regenerate Path
+                    </button>
+                </div>
+                <div id="module-sequence" class="module-sequence">
+                    <!-- Modules will be inserted here -->
+                </div>
+            </br>
+            <div class="path-navigation">
+                <a href="dashboard.html" class="secondary-button">← Back to Dashboard</a>
+                <a href="assessment.html" class="secondary-button">Retake Assessment</a>
+            </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>© 2024 LearnPath. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

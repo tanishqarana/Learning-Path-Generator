@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment - LearnPath</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- In ALL HTML PAGES - UPDATE HEADER NAVIGATION -->
+<header class="header">
+    <div class="header-container">
+        <div class="logo">
+            <a href="dashboard.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                <div class="logo-icon">🎓</div>
+                <div class="logo-text">
+                    <h1>LearnPath</h1>
+                    <p>AI-Powered Learning</p>
+                </div>
+            </a>
+        </div>
+        <nav class="nav">
+            <a href="dashboard.html" class="nav-button">
+                📊 Dashboard
+            </a>
+            <a href="learning-path.html" class="nav-button">
+                🗺️ Learning Path
+            </a>
+            <a href="assessment.html" class="nav-button">
+                🎯 Assessment
+            </a>
+            <a href="profile.html" class="nav-button">
+                👤 Profile
+            </a>
+        </nav>
+    </div>
+</header>
+
+    <main class="main-content">
+        <div class="page-container">
+            <div class="assessment-interface">
+                <div class="question-card">
+                    <div class="question-header">
+                        <h2 id="question-number">Question 1</h2>
+                        <div class="question-meta">
+                            <span class="concept-tag" id="concept-tag">Algebra</span>
+                            <span class="difficulty-tag" id="difficulty-tag">Medium</span>
+                        </div>
+                    </div>
+                    
+                    <div class="question-content">
+                        <p id="question-text">What is 15% of 200?</p>
+                    </div>
+
+                    <div class="options-grid" id="options-container">
+                        <!-- Options will be populated here -->
+                    </div>
+
+                    <div class="question-actions">
+    <button class="secondary-button" id="prev-btn" onclick="assessmentSystem.previousQuestion()" disabled>
+        Previous
+    </button>
+    <button class="primary-button" id="next-btn" onclick="assessmentSystem.nextQuestion()">
+        Next Question
+    </button>
+    <button class="primary-button" id="submit-btn" onclick="assessmentSystem.submitAssessment()" style="display: none;">
+        Submit Assessment
+    </button>
+</div>
+                </div>
+
+                <div class="assessment-sidebar">
+                    <div class="card">
+                        <h3>Progress</h3>
+                        <div class="progress-overview">
+                            <div class="progress-item">
+                                <span>Questions Answered:</span>
+                                <span id="answered-count">0/10</span>
+                            </div>
+                            <div class="progress-item">
+                                <span>Time Spent:</span>
+                                <span id="time-spent">0:00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Concepts Covered</h3>
+                        <div class="concepts-list" id="concepts-covered">
+                            <!-- Concepts will be populated here -->
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Tips</h3>
+                        <div class="tips-content">
+                            <p>• Read each question carefully</p>
+                            <p>• Show your work when possible</p>
+                            <p>• Manage your time wisely</p>
+                            <p>• Review your answers if time permits</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>© 2024 LearnPath. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

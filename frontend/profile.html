@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - LearnPath</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- In ALL HTML PAGES - UPDATE HEADER NAVIGATION -->
+<header class="header">
+    <div class="header-container">
+        <div class="logo">
+            <a href="dashboard.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                <div class="logo-icon">🎓</div>
+                <div class="logo-text">
+                    <h1>LearnPath</h1>
+                    <p>AI-Powered Learning</p>
+                </div>
+            </a>
+        </div>
+        <nav class="nav">
+            <a href="dashboard.html" class="nav-button">
+                📊 Dashboard
+            </a>
+            <a href="learning-path.html" class="nav-button">
+                🗺️ Learning Path
+            </a>
+            <a href="assessment.html" class="nav-button">
+                🎯 Assessment
+            </a>
+            <a href="profile.html" class="nav-button">
+                👤 Profile
+            </a>
+        </nav>
+    </div>
+</header>
+
+    <main class="main-content">
+        <div class="page-container">
+            <h1>👤 Your Profile</h1>
+            
+            <div class="profile-grid">
+                <!-- Basic Information -->
+                <div class="card">
+                    <h3>Basic Information</h3>
+                    <div class="profile-info">
+                        <div class="info-item">
+                            <label>Name:</label>
+                            <span id="profile-name">Loading...</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Student ID:</label>
+                            <span id="profile-id">-</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Member Since:</label>
+                            <span id="profile-joined">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Learning Goals -->
+                <div class="card">
+                    <h3>Learning Goals</h3>
+                    <div class="profile-info">
+                        <div class="info-item">
+                            <label>Target GRE Score:</label>
+                            <span id="target-score">160</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Current Level:</label>
+                            <span id="current-level">-</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Study Time:</label>
+                            <span id="study-time">- hours/week</span>
+                        </div>
+                    </div>
+                    <button class="secondary-button" onclick="editGoals()">
+                        Edit Goals
+                    </button>
+                </div>
+
+                <!-- Knowledge Profile -->
+                <div class="card">
+                    <h3>Knowledge Profile</h3>
+                    <div id="knowledge-stats">
+                        <div class="stats-grid">
+                            <div class="stat-card small">
+                                <h4>Strong Areas</h4>
+                                <div class="stat-number" id="strong-count">0</div>
+                            </div>
+                            <div class="stat-card small">
+                                <h4>Weak Areas</h4>
+                                <div class="stat-number" id="weak-count">0</div>
+                            </div>
+                            <div class="stat-card small">
+                                <h4>Overall</h4>
+                                <div class="stat-number" id="overall-proficiency">0%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="secondary-button" onclick="navigate('assessment')">
+                        Update Assessment
+                    </button>
+                </div>
+
+                <!-- Progress Tracking -->
+                <div class="card">
+                    <h3>Progress Tracking</h3>
+                    <div class="profile-info">
+                        <div class="info-item">
+                            <label>Modules Completed:</label>
+                            <span id="completed-count">0</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Current Streak:</label>
+                            <span id="current-streak">0 days</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Total Study Time:</label>
+                            <span id="total-study-time">0 hours</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Learning Preferences -->
+                <div class="card">
+                    <h3>Learning Preferences</h3>
+                    <div class="profile-info">
+                        <div class="info-item">
+                            <label>Learning Pace:</label>
+                            <span id="learning-pace">Medium</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Learning Style:</label>
+                            <span id="learning-style">Balanced</span>
+                        </div>
+                    </div>
+                    <button class="secondary-button" onclick="editPreferences()">
+                        Edit Preferences
+                    </button>
+                </div>
+
+                <!-- Actions -->
+                <div class="card">
+                    <h3>Account Actions</h3>
+                    <div class="actions-vertical">
+                        <button class="secondary-button" onclick="retakeAssessment()">
+                            Retake Full Assessment
+                        </button>
+                        <button class="secondary-button" onclick="exportData()">
+                            Export Learning Data
+                        </button>
+                        <button class="secondary-button" onclick="switchProfile()">
+                            Switch Profile
+                        </button>
+                        <button class="danger-button" onclick="resetProgress()">
+                            Reset Progress
+                        </button>
+                    </div>
+                </div>
+            </div>
+    <div class="profile-navigation">
+        <a href="dashboard.html" class="secondary-button">← Back to Dashboard</a>
+        <a href="assessment.html" class="primary-button">Update Assessment</a>
+    </div>
+        </div>
+
+
+    </main>
+
+    <footer class="footer">
+        <p>© 2024 LearnPath. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

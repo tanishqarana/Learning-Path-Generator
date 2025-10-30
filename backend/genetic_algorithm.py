@@ -105,7 +105,213 @@ class LearningPathGA:
         
         return available_modules
     
+    def _get_all_required_concepts(self, student):
+        """Get ALL concepts required for comprehensive GRE preparation"""
+        # For comprehensive learning, include all concepts from all modules
+        all_concepts = set()
+        for module in self.modules:
+            all_concepts.update(module.concepts)
+        return list(all_concepts)
+    
+    # In backend/genetic_algorithm.py - ENHANCE THE GENETIC ALGORITHM
+
     def calculate_fitness(self, path, student):
+        """Enhanced fitness function using comprehensive assessment data"""
+        if not path.module_sequence:
+            return 0
+        
+        fitness = 0
+        total_time = 0
+        concepts_covered = set()
+        weak_concepts_covered = set()
+        strong_concepts_reviewed = set()
+    
+        # Get student's comprehensive knowledge profile from 20-question assessment
+        weak_concepts = student.get_weak_concepts(threshold=50)
+        strong_concepts = student.get_strong_concepts(threshold=70)
+        all_required_concepts = self._get_all_required_concepts(student)
+    
+        # Track progression through the path
+        learned_concepts = set(student.known_concepts.keys())
+        prerequisite_violations = 0
+        difficulty_changes = 0
+        weak_area_focus = 0
+    
+        for i, module in enumerate(path.module_sequence):
+            total_time += module.time_estimate
+
+        # Track concept coverage
+            for concept in module.concepts:
+                concepts_covered.add(concept)
+                if concept in weak_concepts:
+                    weak_concepts_covered.add(concept)
+                    weak_area_focus += 1  # Bonus for addressing weak areas
+                if concept in strong_concepts:
+                    strong_concepts_reviewed.add(concept)
+        
+            # Check prerequisite violations
+            for prereq in module.prerequisites:
+                if prereq not in learned_concepts:
+                    prerequisite_violations += 1
+                    # Extra penalty if student is particularly weak in this prerequisite
+                    if prereq in student.known_concepts and student.known_concepts[prereq] < 30:
+                        prerequisite_violations += 1
+        
+        # Update learned concepts for next module
+            learned_concepts.update(module.concepts)
+        
+        # Track difficulty progression (smooth progression is better)
+            if i > 0:
+                prev_difficulty = path[i-1].difficulty
+                current_difficulty = module.difficulty
+                difficulty_changes += abs(current_difficulty - prev_difficulty)
+    
+    # 1. WEAK AREA COVERAGE (30% weight) - HIGHEST PRIORITY
+        if weak_concepts:
+            weak_area_coverage = len(weak_concepts_covered) / len(weak_concepts)
+            weak_area_bonus = weak_area_focus / len(path.module_sequence) * 0.1
+        else:
+            weak_area_coverage = 1.0
+            weak_area_bonus = 0
+        
+        fitness += weak_area_coverage * 0.3 + weak_area_bonus
+    
+    # 2. COMPREHENSIVE COVERAGE (25% weight) - Cover all required concepts
+        if all_required_concepts:
+            required_coverage = len(concepts_covered & set(all_required_concepts)) / len(all_required_concepts)
+        else:
+            required_coverage = 1.0
+        
+        fitness += required_coverage * 0.25
+    
+    # 3. TIME OPTIMIZATION (15% weight) - Respect student's available time
+        time_ratio = total_time / student.available_time_week if student.available_time_week > 0 else 1
+        if time_ratio <= 1.2:  # Allow 20% overage
+            time_fitness = 1 - (time_ratio - 1) * 0.5
+        else:
+            time_fitness = 1 / time_ratio  # Heavy penalty for exceeding
+        
+        fitness += time_fitness * 0.15
+    
+    # 4. PREREQUISITE COMPLIANCE (12% weight)
+        max_possible_violations = sum(len(module.prerequisites) for module in path.module_sequence)
+        if max_possible_violations > 0:
+            prereq_fitness = 1 - (prerequisite_violations / max_possible_violations)
+        else:
+            prereq_fitness = 1.0
+        
+        fitness += prereq_fitness * 0.12
+    
+    # 5. DIFFICULTY PROGRESSION (10% weight)
+        if len(path.module_sequence) > 1:
+            avg_difficulty_change = difficulty_changes / (len(path.module_sequence) - 1)
+            progression_fitness = 1.0 / (1 + avg_difficulty_change * 0.5)
+        else:
+            progression_fitness = 1.0
+        
+        fitness += progression_fitness * 0.10
+    
+    # 6. EFFICIENT REVIEW (8% weight) - Avoid unnecessary review of strong areas
+        if path.module_sequence:
+            review_penalty = len(strong_concepts_reviewed) / (len(concepts_covered) + 1)
+            fitness += (1 - review_penalty) * 0.08
+    
+    # Ensure fitness is between 0 and 1
+        path.fitness = max(0, min(1, fitness))
+        path.total_time = total_time
+        path.concepts_covered = len(concepts_covered)
+        path.weak_areas_covered = f"{len(weak_concepts_covered)}/{len(weak_concepts)}" if weak_concepts else "0/0"
+    
+        return path.fitness
+
+    def get_available_modules(self, student):
+        """Get modules that are appropriate based on comprehensive assessment"""
+        available_modules = []
+    
+    # Get detailed knowledge profile from 20-question assessment
+        weak_concepts = student.get_weak_concepts(50)
+        strong_concepts = student.get_strong_concepts(70)
+    
+        for module in self.modules:
+        # Calculate readiness based on prerequisites
+           readiness = student.calculate_readiness(module)
+        
+        # More sophisticated availability logic
+        if readiness >= 30:  # Lower threshold to allow more modules
+            # Prioritize modules that address weak areas
+            addresses_weak_areas = any(concept in weak_concepts for concept in module.concepts)
+            
+            # Penalize modules that only cover strong areas (unless for review)
+            only_strong_areas = all(concept in strong_concepts for concept in module.concepts)
+        
+            if addresses_weak_areas:
+                # High priority - insert at beginning
+                available_modules.insert(0, module)
+            elif not only_strong_areas:
+                # Medium priority - modules with mixed or new concepts
+                available_modules.append(module)
+            elif module.difficulty <= 2 and random.random() < 0.3:
+                # Low priority - occasional easy review modules
+                available_modules.append(module)
+    
+    # If no modules are available, return easier modules
+        if not available_modules:
+            available_modules = [module for module in self.modules if module.difficulty <= 2]
+    
+        print(f"   Available modules: {len(available_modules)} (based on {len(weak_concepts)} weak areas)")
+        return available_modules
+        """Enhanced fitness function that values comprehensive coverage"""
+        if not path.module_sequence:
+           return 0
+        
+        fitness = 0
+        total_time = 0
+        concepts_covered = set()
+    
+        # Get ALL concepts from all modules
+        all_required_concepts = self._get_all_required_concepts(student)
+    
+        for module in path.module_sequence:
+          total_time += module.time_estimate
+          concepts_covered.update(module.concepts)
+    
+        # 1. Comprehensive Coverage Fitness (30% weight)
+        if all_required_concepts:
+            coverage_ratio = len(concepts_covered) / len(all_required_concepts)
+        else:
+            coverage_ratio = 0
+        fitness += coverage_ratio * 0.3
+    
+        # 2. Weak Area Coverage (25% weight)
+        weak_concepts = student.get_weak_concepts(50)
+        if weak_concepts:
+           weak_coverage = len([c for c in weak_concepts if c in concepts_covered]) / len(weak_concepts)
+        else:
+           weak_coverage = 1.0
+        fitness += weak_coverage * 0.25
+    
+        # 3. Time Fitness (20% weight)
+        time_ratio = total_time / student.available_time_week if student.available_time_week > 0 else 1
+        if time_ratio <= 1:
+           time_fitness = 1 - (1 - time_ratio) * 0.3
+        else:
+           time_fitness = 1 / time_ratio
+        fitness += time_fitness * 0.2
+    
+        # 4. Difficulty Progression (15% weight)
+        progression_score = self.calculate_progression_score(path)
+        fitness += progression_score * 0.15
+    
+        # 5. Prerequisite Compliance (10% weight)
+        prereq_score = self.calculate_prerequisite_score(path, student)
+        fitness += prereq_score * 0.1
+    
+        path.fitness = max(0, min(1, fitness))
+        path.total_time = total_time
+        path.concepts_covered = len(concepts_covered)
+        path.total_concepts = len(all_required_concepts)
+    
+        return path.fitness
         """Enhanced fitness function using real assessment data"""
         if not path.module_sequence:
             return 0
