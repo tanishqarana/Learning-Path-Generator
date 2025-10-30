@@ -1,6 +1,13 @@
-from ..models.module import Module 
+import sys
+import os
 
-def create_gre_quantitative_module():
+# Add the backend directory to Python path
+current_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(current_dir)
+
+from models.module import Module
+
+def create_gre_quantitative_modules():
      modules = [
         # === ARITHMETIC: NUMBER PROPERTIES ===
         Module(id=1, name="Integer Properties and Types", difficulty=1, time_estimate=25,
@@ -269,7 +276,7 @@ def set_prerequisites(modules):
     
 # Test function
 if __name__ == "__main__":
-    modules = create_gre_quantitative_module()
+    modules = create_gre_quantitative_modules()
     
     print("=== GRE QUANTITATIVE - MODULES ===")
     print(f"Total modules: {len(modules)}")
